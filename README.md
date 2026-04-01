@@ -13,7 +13,7 @@ Error: listen EADDRINUSE: address already in use :::3000
 
 ## 📥 Download
 
-**[Download Portequila](./PortKiller/releases/PortKiller-v1.0.0-win-x64.zip)** (Windows 10/11, ~54MB, no install needed)
+**[Download Portequila](./PortKiller/releases/Portequila-v1.0.0-win-x64.zip)** (Windows 10/11, ~54MB, no install needed)
 
 ## ✨ Features
 
@@ -24,7 +24,7 @@ Error: listen EADDRINUSE: address already in use :::3000
 ## 🚀 Quick Start
 
 1. Download and extract the zip
-2. Run `PortKiller.exe` (no installation required)
+2. Run `Portequila.exe` (no installation required)
 3. Type port numbers and press Enter to add them
 4. Click "Scan Ports" or "All Listening"
 5. Select processes and click "Kill Selected"

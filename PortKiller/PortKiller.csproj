@@ -5,7 +5,7 @@
     <TargetFramework>net9.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <AssemblyName>PortKiller</AssemblyName>
+    <AssemblyName>Portequila</AssemblyName>
     <RootNamespace>PortKiller</RootNamespace>
   </PropertyGroup>
 
