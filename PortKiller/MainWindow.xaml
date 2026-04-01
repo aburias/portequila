@@ -1,0 +1,267 @@
+<Window x:Class="PortKiller.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Port Killer" Height="500" Width="600"
+        WindowStartupLocation="CenterScreen"
+        Background="#1e1e2e">
+    
+    <Window.Resources>
+        <Style x:Key="ModernButton" TargetType="Button">
+            <Setter Property="Background" Value="#89b4fa"/>
+            <Setter Property="Foreground" Value="#1e1e2e"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="16,8"/>
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                CornerRadius="6" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#b4befe"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="#45475a"/>
+                    <Setter Property="Foreground" Value="#6c7086"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="DangerButton" TargetType="Button" BasedOn="{StaticResource ModernButton}">
+            <Setter Property="Background" Value="#f38ba8"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#eba0ac"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ModernTextBox" TargetType="TextBox">
+            <Setter Property="Background" Value="#313244"/>
+            <Setter Property="Foreground" Value="#cdd6f4"/>
+            <Setter Property="BorderBrush" Value="#45475a"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,8"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="CaretBrush" Value="#cdd6f4"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="2,0"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <TextBlock Grid.Row="0" 
+                   Text="🔌 Port Killer" 
+                   FontSize="24" 
+                   FontWeight="Bold" 
+                   Foreground="#cdd6f4"
+                   Margin="0,0,0,20"/>
+
+        <!-- Port Input Section -->
+        <Grid Grid.Row="1" Margin="0,0,0,16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox x:Name="PortInputBox" 
+                         Grid.Column="0"
+                         Style="{StaticResource ModernTextBox}"
+                         KeyDown="PortInputBox_KeyDown"
+                         ToolTip="Type a port number and press Enter to add"/>
+
+                <Button Grid.Column="1" 
+                        Content="🔍 Scan Ports" 
+                        Style="{StaticResource ModernButton}"
+                        Click="ScanPorts_Click"/>
+
+                <Button Grid.Column="2" 
+                        Content="📋 All Listening" 
+                        Style="{StaticResource ModernButton}"
+                        Click="ShowAllListening_Click"/>
+            </Grid>
+            
+            <!-- Port Tags -->
+            <Border Grid.Row="1" 
+                    Background="#313244" 
+                    CornerRadius="6" 
+                    Margin="0,8,0,0"
+                    Padding="8,6"
+                    MinHeight="40">
+                <Grid>
+                    <TextBlock x:Name="PlaceholderText"
+                               Text="Type port and press Enter to add..."
+                               Foreground="#6c7086"
+                               VerticalAlignment="Center"
+                               FontStyle="Italic"/>
+                    <ItemsControl x:Name="PortTagsControl">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="#89b4fa" 
+                                        CornerRadius="12" 
+                                        Padding="10,4" 
+                                        Margin="0,2,6,2">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding}" 
+                                                   Foreground="#1e1e2e" 
+                                                   FontWeight="SemiBold"
+                                                   VerticalAlignment="Center"/>
+                                        <Button Content="✕" 
+                                                Background="Transparent"
+                                                Foreground="#1e1e2e"
+                                                BorderThickness="0"
+                                                Padding="4,0,0,0"
+                                                Margin="6,0,0,0"
+                                                FontSize="11"
+                                                Cursor="Hand"
+                                                Click="RemovePortTag_Click"
+                                                Tag="{Binding}"/>
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Results List -->
+        <Border Grid.Row="2" 
+                Background="#313244" 
+                CornerRadius="8"
+                Padding="4">
+            <ListView x:Name="ProcessList"
+                      Background="Transparent"
+                      BorderThickness="0"
+                      Foreground="#cdd6f4"
+                      SelectionMode="Single">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="40">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" 
+                                              Click="ProcessCheckBox_Click"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Port" Width="70" DisplayMemberBinding="{Binding Port}"/>
+                        <GridViewColumn Header="Process" Width="140" DisplayMemberBinding="{Binding ProcessName}"/>
+                        <GridViewColumn Header="PID" Width="70" DisplayMemberBinding="{Binding ProcessId}"/>
+                        <GridViewColumn Header="Protocol" Width="60" DisplayMemberBinding="{Binding Protocol}"/>
+                        <GridViewColumn Header="State" Width="90" DisplayMemberBinding="{Binding State}"/>
+                    </GridView>
+                </ListView.View>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Foreground" Value="#cdd6f4"/>
+                        <Setter Property="Padding" Value="8,6"/>
+                        <Setter Property="Margin" Value="2"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListViewItem">
+                                    <Border x:Name="Bd" 
+                                            Background="Transparent" 
+                                            CornerRadius="4"
+                                            Padding="{TemplateBinding Padding}">
+                                        <GridViewRowPresenter/>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter TargetName="Bd" Property="Background" Value="#45475a"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Bd" Property="Background" Value="#3b3d4f"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </Border>
+
+        <!-- Action Buttons -->
+        <Grid Grid.Row="3" Margin="0,16,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <CheckBox x:Name="SelectAllCheckBox" 
+                          Content="Select All" 
+                          Foreground="#cdd6f4"
+                          VerticalAlignment="Center"
+                          Margin="0,0,12,0"
+                          Click="SelectAll_Click"/>
+            </StackPanel>
+            
+            <TextBlock x:Name="StatusText" 
+                       Grid.Column="1"
+                       Foreground="#a6adc8" 
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
+            
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Button Content="🔄 Refresh" 
+                        Style="{StaticResource ModernButton}"
+                        Click="Refresh_Click"/>
+                
+                <Button x:Name="KillSelectedButton"
+                        Content="💀 Kill Selected" 
+                        Style="{StaticResource DangerButton}"
+                        Click="KillSelected_Click"
+                        IsEnabled="False"/>
+                
+                <Button x:Name="KillAllButton"
+                        Content="☠️ Kill All" 
+                        Style="{StaticResource DangerButton}"
+                        Click="KillAll_Click"
+                        IsEnabled="False"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Window>

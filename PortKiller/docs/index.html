@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portequila - Take a shot. Kill the port!</title>
+    <meta name="description" content="Tired of 'port already in use'? Kill those lingering processes with one click.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Fredoka', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .logo {
+            max-width: 380px;
+            width: 100%;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 10px 30px rgba(0,0,0,0.4));
+        }
+
+        .pain {
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 24px 32px;
+            margin-bottom: 32px;
+            text-align: center;
+            max-width: 500px;
+            backdrop-filter: blur(10px);
+        }
+
+        .pain-title {
+            color: #ff6b6b;
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+        }
+
+        .pain-text {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background: #0d1117;
+            color: #f85149;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .solution {
+            font-size: 1.3rem;
+            color: #a6e3a1;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #f9a825 0%, #ff6f00 100%);
+            color: #1a1a2e;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(249, 168, 37, 0.4);
+            margin-bottom: 16px;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(249, 168, 37, 0.5);
+        }
+
+        .meta {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+            margin-bottom: 40px;
+        }
+
+        .features {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .feature {
+            background: rgba(255,255,255,0.05);
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-size: 1rem;
+        }
+
+        .github {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .github:hover {
+            color: #fff;
+        }
+
+        @media (max-width: 500px) {
+            .logo { max-width: 280px; }
+            .pain { padding: 20px; }
+            .download-btn { padding: 16px 32px; font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+    <img src="portequila-logo.png" alt="Portequila" class="logo">
+    
+    <div class="pain">
+        <div class="pain-title">We've all been there...</div>
+        <div class="pain-text">Error: listen EADDRINUSE: address already in use :::3000</div>
+    </div>
+
+    <p class="solution">Find it. Select it. Kill it. 💀</p>
+
+    <a href="https://github.com/user/portequila/raw/main/releases/PortKiller-v1.0.0-win-x64.zip" class="download-btn">
+        🍹 Download for Windows
+    </a>
+    
+    <p class="meta">v1.0 • Windows 10/11 • No install needed</p>
+
+    <div class="features">
+        <div class="feature">🎯 Scan specific ports</div>
+        <div class="feature">📋 See all listening</div>
+        <div class="feature">☑️ Multi-select & kill</div>
+    </div>
+
+    <a href="https://github.com/user/portequila" class="github">View source on GitHub →</a>
+</body>
+</html>
