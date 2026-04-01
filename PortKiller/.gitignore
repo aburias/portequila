@@ -50,6 +50,7 @@ $RECYCLE.BIN/
 # Node (for landing page)
 node_modules/
 
-# Keep releases folder but ignore raw exe and debug symbols (only ship zip)
+# Keep releases folder but ignore raw exe, debug symbols, and test folders (only ship zip)
 releases/*.pdb
 releases/*.exe
+releases/test-extract/
